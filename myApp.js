@@ -1,7 +1,16 @@
 const express = require('express');
+const helmet = required('helmet');
 const app = express();
 
-
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'trusted-cdn.com'],
+    }
+  },
+  noCache: true
+}))
 
 
 
@@ -57,5 +66,5 @@ app.get("/", function (request, response) {
 });
 let port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Your app is listening on port ${port}`);
+  console.log(`Info Sec App Started on Port ${port}`);
 });
